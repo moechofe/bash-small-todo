@@ -19,9 +19,3 @@ I create a very very small bash script that I'm using every day at work to help 
 * list task:
 
   todo
-
-
-### Ugly demo:
-_my computer has 30 of load during recording_
-[![asciicast](https://asciinema.org/a/14.png)](https://asciinema.org/a/14)
-
