@@ -1,0 +1,48 @@
+#!/bin/bash
+
+DATA=$HOME/.config/todo.lst
+
+esc=$(printf '\033')
+
+light()
+{
+    [[ -z $1 ]] && cat || sed "s/\($1\)/${esc}[7m\\1${esc}[27m/g"
+}
+
+color()
+{
+    awk -F $'\t' '{chk="cksum|nth 2"; print $2|& chk; close(chk,"to"); while(chk |& getline color > 0) bold=match($2,/^@[A-Z][A-Z]*$/); printf("\033[%sm%s\t\033[%dm%s\033[39m\t%s.\t%s\033[0m\n",bold,$1,color%6+31,$2,$3,$4); close(chk)}'
+}
+
+col()
+{
+    column -s$'\t' -t
+}
+
+# editor
+if [[ $# -eq 1 ]] && [[ $1 == "ed" ]]; then
+    eval "${EDITOR:-vim} $DATA"
+    exit
+
+# mark as done
+elif [[ $# -eq 2 ]] && [[ $2 =~ ([oO][kK]|[dD][oO][nN][eE]) ]] && [[ $1 =~ ^[0-9][0-9]*$ ]]; then
+    sed -i "s/^\\($2.*\\)/#\\1/" "$DATA"
+
+# show full
+elif [[ $# -eq 1 ]] && [[ $1 =~ ^[0-9][0-9]*$ ]]; then
+    cat "$DATA" | grep "^$1"$'\t' | color | col
+
+# add a task
+elif [[ $# -gt 1 ]] && [[ $1 =~ ^(@.*)$ ]]; then
+    id=0
+    [[ -f "$DATA" ]] && id=$(cat "$DATA" | awk '{print $1}' | sed 's/^#//' | sort -nr | head -1)
+	((id++))
+    echo "${@:2}" | awk -F'.' -v i="$id" -v p="${BASH_REMATCH[1]}" '{f=$1;$1="";printf("%s\t%s\t%s\t%s\n",i,p,f,$0)}' >>"$DATA"
+    echo $id
+
+# list
+else
+    cat "$DATA" | grep -v '^#' | grep "$1" | awk -F$'\t' '{printf("%s\t%s\t%s%s\n",$1,$2,$3,$4?"..":"")}' | color "${1:-}" | light "$1" | col
+
+fi
+
