@@ -11,7 +11,8 @@ light()
 
 color()
 {
-    awk -F $'\t' '{chk="cksum|nth 2"; print $2|& chk; close(chk,"to"); while(chk |& getline color > 0) bold=match($2,/^@[A-Z][A-Z]*$/); printf("\033[%sm%s\t\033[%dm%s\033[39m\t%s.\t%s\033[0m\n",bold,$1,color%6+31,$2,$3,$4); close(chk)}'
+    awk -F $'\t' '{chk="cksum|nth 2"; print $2|& chk; close(chk,"to"); while(chk |& getline color > 0) bold=match($2,/^@[A-Z][A-Z]*$/); printf("\033[%sm%s\t\033[%dm%s\033[39m\t%s.\t%s\033[0m\n",bold,$1,color%6+31,$2,$3,$4); close(chk)}' \
+    | perl -pe "s/([^\w])\*([\s\w]+)\*([^\w])/\$1${esc}[4m\$2${esc}[24m\$3/"
 }
 
 col()
