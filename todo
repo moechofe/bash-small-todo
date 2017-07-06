@@ -27,7 +27,7 @@ if [[ $# -eq 1 ]] && [[ $1 == "ed" ]]; then
 
 # mark as done
 elif [[ $# -eq 2 ]] && [[ $2 =~ ([oO][kK]|[dD][oO][nN][eE]) ]] && [[ $1 =~ ^[0-9][0-9]*$ ]]; then
-    sed -i "s/^\\($2.*\\)/#\\1/" "$DATA"
+    sed -i "s/^\\($1.*\\)/#\\1/" "$DATA"
 
 # show full
 elif [[ $# -eq 1 ]] && [[ $1 =~ ^[0-9][0-9]*$ ]]; then
