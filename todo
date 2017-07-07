@@ -23,7 +23,6 @@ col()
 # editor
 if [[ $# -eq 1 ]] && [[ $1 == "ed" ]]; then
     eval "${EDITOR:-vim} $DATA"
-    exit
 
 # mark as done
 elif [[ $# -eq 2 ]] && [[ $2 =~ ([oO][kK]|[dD][oO][nN][eE]) ]] && [[ $1 =~ ^[0-9][0-9]*$ ]]; then
@@ -39,7 +38,6 @@ elif [[ $# -gt 1 ]] && [[ $1 =~ ^(@.*)$ ]]; then
     [[ -f "$DATA" ]] && id=$(cat "$DATA" | awk '{print $1}' | sed 's/^#//' | sort -nr | head -1)
 	((id++))
     echo "${@:2}" | awk -F'.' -v i="$id" -v p="${BASH_REMATCH[1]}" '{f=$1;$1="";printf("%s\t%s\t%s\t%s\n",i,p,f,$0)}' >>"$DATA"
-    echo $id
 
 # list
 else
