@@ -21,23 +21,37 @@ Copy the file somewhere and make it available for your PATH environment variable
 
 * create a task:
 
+  ```
   todo @<project> <title>
   todo @<project> <title>. <desc>
+  ```
+  
+  The dot (.) is used as separater for the description
 
 * list task:
 
+  ```
   todo
   todo <filter>
+  ```
 
 * show task:
 
+  ```
   todo <id>
+  ```
 
 * complete a task:
 
+  ```
   todo <id> ok|done
+  ```
 
 * edit the data file:
 
+  ```
   todo ed
+  ```
+### Usage:
 
+Because the arguments are used to create the title and the description, in some case You will need to quotes the text (or escape the special chars).
