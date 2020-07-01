@@ -26,7 +26,7 @@ Copy the file somewhere and make it available for your PATH environment variable
   todo @<project> <title>. <desc>
   ```
   
-  The dot (.) is used as separater for the description
+  The dot (.) is used as a separator for the description
 
 * list task:
 
