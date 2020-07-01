@@ -6,7 +6,7 @@ I create a very very small bash script that I'm using every day at work to help 
 
 ### Features:
 - task never change ID (not like Taskwarrior)
-- 3 fields per tasks: project, title and an optional descriptiono
+- 3 fields per tasks: project, title and an optional description
 - human readable/editable data file (tab-separated-value)
 - complete a task didn't remove it, but comment it in the data file
 - colorized by project
