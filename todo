@@ -1,6 +1,7 @@
 #!/bin/bash
 
 DATA=$HOME/.config/todo.lst
+touch $DATA
 
 esc=$(printf '\033')
 
